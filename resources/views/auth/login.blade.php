@@ -1,45 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login bro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Login</title>
+</head>
+
+<body>
     <div class="container">
         <a href="/">
-            <i class="bi-arrow-left h1"></i>
+            <i class="bi bi-arrow-left h1"></i>
         </a>
     </div>
-    
-    <div class="container d-flex justify-content-center align-items-center" style="margin-top: 60px;">
-        <div class="card" style="width: 35%;">
+
+    <div class="container mt-3">
+        @if (Session::get('failed'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Login Gagal!</strong> {{ Session::get('failed') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil!</strong> {{ Session::get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center" style="margin-top: 60px">
+        <div class="card" style="width: 35%">
             <div class="card-body p-4">
                 <h3 class="card-title text-center">Login</h3>
-    
-                <form>
+
+                <form action="{{ route('postLogin') }}" method="POST">
                     @csrf
+
                     <div class="form-group mt-4">
                         <label class="text-secondary">Email Anda</label>
-                        <input type="email" class="form-control border border-secondary form-control-lg" name="email"><br>
-                    </div>
-    
+                        <input type="email" class="form-control border border-secondary form-control-lg" name="email" required value="{{ old('email') }}">
+                        <span class="text-danger">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div><br>
+
                     <div class="form-group mt-1">
                         <label class="text-secondary">Password Anda</label>
                         <input type="password" class="form-control border border-secondary form-control-lg" name="password">
+                        <span class="text-danger">
+                            @error('password')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
-    
+
                     <button type="submit" class="form-control btn btn-primary mt-5">Login</button>
                 </form>
-    
+
                 <p class="mt-2 text-center">Belum punya akun? 
-                    <a href="#" style="text-decoration: none;">Ayo buat akun!</a>
+                    <a href="{{ route('auth.register') }}" style="text-decoration: none">Ayo buat akun!</a>
                 </p>
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
