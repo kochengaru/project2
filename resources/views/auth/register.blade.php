@@ -7,7 +7,7 @@
     <title>Register</title>
 </head>
 
-<body>
+<body class="bg-secondary">
     <div class="container">
         <a href="/">
             <i class="bi bi-arrow-left h1"></i>
