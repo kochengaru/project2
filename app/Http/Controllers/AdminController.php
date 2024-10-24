@@ -8,6 +8,8 @@ use App\Models\Buku;
 use App\Models\Peminjaman;
 use Illuminate\Support\Facades\Hash;
 
+# untuk admin 
+
 class AdminController extends Controller
 {
     public function tambah()
